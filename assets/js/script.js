@@ -3,7 +3,7 @@ var searchFormEl = $("#city-search")
 var searchedCityEl = $("#search-locations-container")
 var currentDayDisplayEl = $("#current-day")
 var fiveDayDisplayEl = $("#five-day-forcast")
-
+var searchedCityStorage = []
 
 var getCityData = function(cityName){
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey
@@ -81,6 +81,10 @@ var showWeather = function(chosenCity){
     searchedCityEl.append("<button class='searched-city btn btn-secondary w-100 m-1'>" + chosenCity + "</button>")
 
     getCityData(chosenCity)
+
+    searchedCityStorage.push(chosenCity)
+
+    saveSearches()
     
     $("#city-search-text").val("")
 }
@@ -96,9 +100,26 @@ var previousSearchHandler = function(){
     $(this).remove()
 }
 
+var saveSearches = function(){
+    localStorage.setItem("cities", JSON.stringify(searchedCityStorage));
+}
+
+var loadSearches = function(){
+    var searchedCities = localStorage.getItem("cities")
 
 
+    if (!searchedCities) {
+        return false
+    }
 
+    searchedCities = JSON.parse(searchedCities)
+
+    for (var i = 0; i < searchedCities.length; i++) {
+        searchedCityEl.append("<button class='searched-city btn btn-secondary w-100 m-1'>" + searchedCities[i] + "</button>")
+    }
+}
+
+loadSearches()
 
 searchFormEl.on("submit", showWeather)
 searchedCityEl.on("click", ".searched-city", previousSearchHandler)
