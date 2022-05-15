@@ -11,7 +11,7 @@ Create a website utilizing server-side APIs that will return weather data based 
 https://nickrearl.github.io/weather-dashboard/
 
 ## Credits
-* This was developed as part of MSUs coding bootcamp program the starter code and mock up were provided by the program copyrighted as follows: © 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+* This was developed as part of MSUs coding bootcamp program the mock up was provided by the program copyrighted as follows: © 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
 * Bootstrap is used for the CSS framework: https://getbootstrap.com/
 * jQuery is used for additional javascript functions and methods: https://jquery.com/
 * Moment.js is used for time functionality in javascript: https://momentjs.com/
