@@ -10,6 +10,7 @@ var getCityData = function(cityName){
     fetch(apiUrl).then(function(response){
         if (response.ok){
             response.json().then(function(data){
+                console.log(data);
                 getWeatherData(data.coord.lat, data.coord.lon)
             })
         }
@@ -20,7 +21,7 @@ var getCityData = function(cityName){
 }
 
 var getWeatherData = function(lat, lon){
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + apiKey
 
     fetch(apiUrl).then(function(response){
         if (response.ok){
@@ -36,9 +37,20 @@ var getWeatherData = function(lat, lon){
 
 var showWeather = function(){
     event.preventDefault()
+
+    $(".current-weather-display").remove()
+
     chosenCity = $("#city-search-text").val()
 
-    getCityData(chosenCity)
+    currentDay = moment().format("M/D/YYYY")
+
+    currentDayDisplayEl.append("<div class='current-weather-display'></div>")
+
+    $(".current-weather-display").append("<h3>" + chosenCity + " (" + currentDay + ")" + "</h3>")
+
+    searchedCityEl.append("<button class='searched-city btn btn-secondary w-100 m-1'>" + chosenCity + "</button>")
+
+    // getCityData(chosenCity)
     
 }
 
