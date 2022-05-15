@@ -35,7 +35,7 @@ var getWeatherData = function(lat, lon){
     })
 }
 
-var showWeather = function(){
+var showWeather = function(chosenCity){
     event.preventDefault()
 
     $(".current-weather-display").remove()
@@ -52,6 +52,18 @@ var showWeather = function(){
 
     // getCityData(chosenCity)
     
+    $("#city-search-text").val("")
+}
+
+var previousSearchHandler = function(){
+    var selectedCity = $(this).text()
+
+
+    $("#city-search-text").val(selectedCity)
+    
+    showWeather()
+
+    $(this).remove()
 }
 
 
@@ -59,3 +71,4 @@ var showWeather = function(){
 
 
 searchFormEl.on("submit", showWeather)
+searchedCityEl.on("click", ".searched-city", previousSearchHandler)
