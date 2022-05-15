@@ -4,6 +4,7 @@ var searchedCityEl = $("#search-locations-container")
 var currentDayDisplayEl = $("#current-day")
 var fiveDayDisplayEl = $("#five-day-forcast")
 
+
 var getCityData = function(cityName){
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey
 
@@ -25,7 +26,6 @@ var getWeatherData = function(lat, lon){
     fetch(apiUrl).then(function(response){
         if (response.ok){
             response.json().then(function(data){
-                console.log(data);
                 $(".current-weather-display").append("<img src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png'>" )
                 $(".current-weather-display").append("<p>Temp: " + data.current.temp + "F</p>")
                 $(".current-weather-display").append("<p>Wind: " + data.current.wind_speed + "MPH</p>")
@@ -74,7 +74,7 @@ var showWeather = function(chosenCity){
 
     currentDay = moment().format("M/D/YYYY")
 
-    currentDayDisplayEl.append("<div class='current-weather-display'></div>")
+    currentDayDisplayEl.append("<div class='current-weather-display border border-info m-1 w-100'></div>")
 
     $(".current-weather-display").append("<h3>" + chosenCity + " (" + currentDay + ")" + "</h3>")
 
