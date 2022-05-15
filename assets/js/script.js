@@ -25,6 +25,7 @@ var getWeatherData = function(lat, lon){
     fetch(apiUrl).then(function(response){
         if (response.ok){
             response.json().then(function(data){
+                console.log(data);
                 $(".current-weather-display").append("<img src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png'>" )
                 $(".current-weather-display").append("<p>Temp: " + data.current.temp + "F</p>")
                 $(".current-weather-display").append("<p>Wind: " + data.current.wind_speed + "MPH</p>")
@@ -40,6 +41,20 @@ var getWeatherData = function(lat, lon){
                         $(".uv-index").addClass("bg-danger")
                     }
 
+                    for (let index = 1; index < 6; index++) {
+
+                        forcastDay = data.daily[index]
+
+                        fiveDayDisplayEl.append("<div class='forecast-card text-white bg-secondary col-sm-6 col-md-2 col-lg-2 day-" + index +"'></div>")
+
+                        $(".day-" + index).append(moment().add(index, 'days').format("M/D/YYYY"))
+                        $(".day-" + index).append("<img src='http://openweathermap.org/img/wn/" + forcastDay.weather[0].icon + ".png'>")
+                        $(".day-" + index).append("<p>Temp: " + forcastDay.temp.day + "F</p>")
+                        $(".day-" + index).append("<p>Wind: " + forcastDay.wind_speed + "MPH</p>")
+                        $(".day-" + index).append("<p>Humidity: " + forcastDay.humidity + "%</p>")
+                        
+
+                    }
             })
         }
         else{
@@ -53,13 +68,13 @@ var showWeather = function(chosenCity){
 
     $(".current-weather-display").remove()
 
+    $(".forecast-card").remove()
+
     chosenCity = $("#city-search-text").val()
 
     currentDay = moment().format("M/D/YYYY")
 
     currentDayDisplayEl.append("<div class='current-weather-display'></div>")
-
-    fiveDayDisplayEl.append("<div class ='future-weather-display'></div>")
 
     $(".current-weather-display").append("<h3>" + chosenCity + " (" + currentDay + ")" + "</h3>")
 
